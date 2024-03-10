@@ -33,7 +33,7 @@ const Modal: FC<TModal> = ({ active, setActive, children }) => {
         }
       >
         <button
-          className={`${stylesModalDetails.close} mt-7 mr-5`}
+          className={`${stylesModalDetails.close}`}
           onClick={() => setActive(false)}
         >
           <CloseIcon strokeDefault="#000" />

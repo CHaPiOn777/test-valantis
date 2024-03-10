@@ -13,98 +13,102 @@ import DeletePostsModal from "../../Modal/DeletePostsModal/DeletePostsModal";
 import EditModal from "../../Modal/EditModal/EditModal";
 
 export type TPost = {
-  user: TUser[];
-  body: string;
-  id: number;
-  title: string;
-  comments: TComments[];
+  brand: string;
+  id: string;
+  product: string;
+  price: number;
 };
-const Post: FC<TPost> = ({ title, body, id, comments, user }) => {
+const Post: FC<TPost> = ({ brand, product, id, price }) => {
   const dispatch = useAppDispatch();
-  const { favorites } = useAppSelector((state) => state.postReducer);
-  const { toggleFavorites } = PostsSlice.actions;
-  const { idChecked } = useAppSelector((state) => state.postReducer);
-  const { addChecked } = PostsSlice.actions;
-  const [activePopup, setActivePopup] = useState<boolean>(false);
-  const [textPopup, setTextPopup] = useState<string>("");
-  const [modalName, setModalName] = useState<string>("");
+  // const { favorites } = useAppSelector((state) => state.postReducer);
+  // const { toggleFavorites } = PostsSlice.actions;
+  // const { idChecked } = useAppSelector((state) => state.postReducer);
+  // const { addChecked } = PostsSlice.actions;
+  // const [activePopup, setActivePopup] = useState<boolean>(false);
+  // const [textPopup, setTextPopup] = useState<string>("");
+  // const [modalName, setModalName] = useState<string>("");
 
-  const [checkedComments, setCheckedComments] = useState<boolean>(false);
-  const { name } = user[0];
+  // const [checkedComments, setCheckedComments] = useState<boolean>(false);
+  // const { name } = user[0];
 
-  const openComments = (
-    e: React.MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent>
-  ) => {
-    e.stopPropagation();
-    setCheckedComments(!checkedComments);
-  };
+  // const openComments = (
+  //   e: React.MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent>
+  // ) => {
+  //   e.stopPropagation();
+  //   setCheckedComments(!checkedComments);
+  // };
 
-  const favoriteClick = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      e.stopPropagation();
-      idChecked.length > 0
-        ? idChecked.map((item) => {
-            dispatch(toggleFavorites(item));
-          })
-        : dispatch(toggleFavorites(id));
-    },
-    [id, idChecked, dispatch]
-  );
+  // const favoriteClick = useCallback(
+  //   (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  //     e.stopPropagation();
+  //     idChecked.length > 0
+  //       ? idChecked.map((item) => {
+  //           dispatch(toggleFavorites(item));
+  //         })
+  //       : dispatch(toggleFavorites(id));
+  //   },
+  //   [id, idChecked, dispatch]
+  // );
 
-  const activeFavorites = useMemo(() => {
-    return favorites.some((item) => item === id);
-  }, [favorites, dispatch, id]);
+  // const activeFavorites = useMemo(() => {
+  //   return favorites.some((item) => item === id);
+  // }, [favorites, dispatch, id]);
 
-  const isChecked = useMemo(() => {
-    return idChecked.some((item) => item === id);
-  }, [idChecked]);
+  // const isChecked = useMemo(() => {
+  //   return idChecked.some((item) => item === id);
+  // }, [idChecked]);
 
-  const deletePosts = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
-    setModalName("delete");
-    setTextPopup("Are you sure you want to delete the selected items?");
-    setActivePopup(true);
-  };
+  // const deletePosts = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  //   e.stopPropagation();
+  //   setModalName("delete");
+  //   setTextPopup("Are you sure you want to delete the selected items?");
+  //   setActivePopup(true);
+  // };
 
-  const editPost = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
-    e.preventDefault();
-    setModalName("edit");
-    setActivePopup(true);
-  };
+  // const editPost = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  //   e.stopPropagation();
+  //   e.preventDefault();
+  //   setModalName("edit");
+  //   setActivePopup(true);
+  // };
 
   return (
     <div
-      className={
-        isChecked ? `${styles.post} ${styles.postActive}` : styles.post
-      }
-      onClick={() => dispatch(addChecked(id))}
+      // className={
+      //   isChecked ? `${styles.post} ${styles.postActive}` : styles.post
+      // }
+      className={styles.post}
+      // onClick={() => dispatch(addChecked(id))}
     >
-      <Modal active={activePopup} setActive={setActivePopup}>
+      <p className={styles.id}>ID: {id}</p>
+
+      {/* <Modal active={activePopup} setActive={setActivePopup}>
         {modalName === "delete" ? (
           <DeletePostsModal textPopup={textPopup} setActive={setActivePopup} />
         ) : (
           <EditModal setActive={setActivePopup} id={id}></EditModal>
         )}
-      </Modal>
-      <h1 className={styles.title}>{title}</h1>
+      </Modal> */}
+      <h1 className={styles.title}>{product}</h1>
       <button
-        className={
-          isChecked || activeFavorites
-            ? `${styles.button} ${styles.favorite} ${styles.buttonActive}`
-            : `${styles.button} ${styles.favorite}`
-        }
-        onClick={(e) => favoriteClick(e)}
+        // className={
+        //   isChecked || activeFavorites
+        //     ? `${styles.button} ${styles.favorite} ${styles.buttonActive}`
+        //     : `${styles.button} ${styles.favorite}`
+        // }
+        className={`${styles.button} ${styles.favorite}`}
+        // onClick={(e) => favoriteClick(e)}
       >
         <FavoritesIcon
-          strokeDefault={activeFavorites ? "rgb(255 0 240)" : "rgb(0 126 255)"}
+          strokeDefault={"rgb(0 126 255)"}
+          // strokeDefault={activeFavorites ? "rgb(255 0 240)" : "rgb(0 126 255)"}
         />
       </button>
-      <p className={styles.description}>{body}</p>
+      <p className={styles.price}>Цена товара: {price}</p>
       <div className={styles.footer}>
-        <p className={styles.userName}>{name}</p>
+        <p className={styles.userName}>{brand}</p>
         <div className={styles.buttons}>
-          <button
+          {/* <button
             className={
               isChecked
                 ? `${styles.button} ${styles.btnDelete} ${styles.buttonActive}`
@@ -114,24 +118,24 @@ const Post: FC<TPost> = ({ title, body, id, comments, user }) => {
           >
             <span className={styles.span}>Удалить</span>
             <Delete strokeDefault="rgb(0 126 255)" />
-          </button>
+          </button> */}
 
-          <button className={styles.button} onClick={(e) => openComments(e)}>
+          {/* <button className={styles.button} onClick={(e) => openComments(e)}>
             <span className={styles.span}>Комментарии</span>
             <DialogueIcon
               strokeDefault={
                 checkedComments ? "rgb(255 0 240)" : "rgb(0 126 255)"
               }
             />
-          </button>
+          </button> */}
 
-          <button className={styles.button} onClick={(e) => editPost(e)}>
+          {/* <button className={styles.button} onClick={(e) => editPost(e)}>
             <span className={styles.span}>Редактировать</span>
             <EditIcon strokeDefault="rgb(0 126 255)" />
-          </button>
+          </button> */}
         </div>
       </div>
-      <div
+      {/* <div
         className={
           checkedComments
             ? `${styles.overlay} ${styles.overlayActive}`
@@ -158,7 +162,7 @@ const Post: FC<TPost> = ({ title, body, id, comments, user }) => {
               );
             })}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

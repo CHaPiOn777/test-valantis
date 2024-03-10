@@ -16,10 +16,10 @@
   border-radius: 10px;
   border: 1px solid #000;
   cursor: pointer;
-  transition: all .3s ;
+  transition: all 0.3s;
 }
 .btn:hover {
   color: #fff;
   background-color: #007eff;
-  border: none;
-} 
+  border: 1px solid transparent;
+}

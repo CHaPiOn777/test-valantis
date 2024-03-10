@@ -15,7 +15,7 @@ export type TPost = {
 export type TPostsUser = {
   post: TPost;
   user: TUser[];
-}
+};
 export type TPostEdit = {
   body: string;
   title: string;
@@ -25,6 +25,13 @@ export type TPostEdit = {
 export type TUser = {
   name: string;
   id: number;
+};
+
+export type TProduct = {
+  brand: string;
+  id: string;
+  price: number;
+  product: string;
 };
 
 export type TComments = {

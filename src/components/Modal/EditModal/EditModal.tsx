@@ -39,7 +39,7 @@ const EditModal: FC<TEditModal> = ({ setActive, id }) => {
       </div>
       <div className={styles.btns}>
         <button
-          className={`${styles.btn} mt-7 mr-5`}
+          className={`${styles.btn}`}
           onClick={() => {
             dispatch(fetchPostsPatching(title, description, userName, id));
             setActive(false);
@@ -48,8 +48,11 @@ const EditModal: FC<TEditModal> = ({ setActive, id }) => {
           Edit
         </button>
         <button
-          className={`${styles.btn} mt-7 mr-5`}
-          onClick={(e) => {setActive(false); e.preventDefault()}}
+          className={`${styles.btn}`}
+          onClick={(e) => {
+            setActive(false);
+            e.preventDefault();
+          }}
         >
           Close
         </button>

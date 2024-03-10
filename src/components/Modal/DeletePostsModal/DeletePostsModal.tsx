@@ -18,7 +18,7 @@ const DeletePosts: FC<TDeleteModal> = ({ textPopup, setActive }) => {
       <h3 className={styles.text}>{textPopup}</h3>
       <div className={styles.btns}>
         <button
-          className={`${styles.btn} mt-7 mr-5`}
+          className={`${styles.btn}`}
           onClick={() => {
             dispatch(fetchPostsDelete(idChecked));
             setActive(false);
@@ -26,10 +26,7 @@ const DeletePosts: FC<TDeleteModal> = ({ textPopup, setActive }) => {
         >
           Yes
         </button>
-        <button
-          className={`${styles.btn} mt-7 mr-5`}
-          onClick={() => setActive(false)}
-        >
+        <button className={`${styles.btn}`} onClick={() => setActive(false)}>
           No
         </button>
       </div>

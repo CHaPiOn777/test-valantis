@@ -12,8 +12,6 @@ const Filters = () => {
 
   return (
     <div className={styles.containerFilter}>
-      <h2 className="title"></h2>
-
       <form className={styles.form}>
         <div className={styles.searchContainer}>
           <i className={styles.searchIcon}>
