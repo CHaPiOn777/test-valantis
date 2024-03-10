@@ -24,9 +24,9 @@ const Filters = () => {
           />
         </div>
         <div className={styles.container}>
-          <Filtred />
+          {/* <Filtred /> */}
           <DisplayItems />
-          <Sorted />
+          {/* <Sorted /> */}
         </div>
       </form>
     </div>

@@ -10,17 +10,27 @@ import Filters from "../Filters/Filters";
 
 function App() {
   const dispatch = useAppDispatch();
-  const { productsUid } = useAppSelector((state) => state.productsReducer);
+  const counterPerPages = localStorage.getItem("counterPerPages");
+
+  const { productsUid, productsPage, productsValuePage } = useAppSelector(
+    (state) => state.productsReducer
+  );
+  console.log(counterPerPages);
   useEffect(() => {
-    dispatch(fetchProductsUid({ offset: 1, limit: 30 }));
-  }, [dispatch]);
+    dispatch(
+      fetchProductsUid({
+        offset: productsPage,
+        limit: Number(productsValuePage),
+      })
+    );
+  }, [dispatch, productsPage, productsValuePage]);
   useEffect(() => {
     productsUid.length && dispatch(fetchProducts(productsUid));
   }, [productsUid, dispatch]);
 
   return (
     <>
-      {/* <Filters /> */}
+      <Filters />
       <Posts />
     </>
   );

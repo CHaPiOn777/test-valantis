@@ -8,6 +8,7 @@ export type TProduct = {
 };
 type TProductState = {
   products: TProduct[];
+  productsValuePage: string;
   productsUid: string[];
   isLoading: boolean;
   error: string;
@@ -15,17 +16,19 @@ type TProductState = {
   isFavorites: boolean;
   idChecked: number[];
   // paramSort: string[];
-  // postsPage: string;
+  productsPage: number;
   valueInput: string;
 };
 
 const initialState: TProductState = {
   products: [],
+  productsValuePage: "10",
   productsUid: [],
   isLoading: false,
   error: "",
   favorites: [],
   idChecked: [],
+  productsPage: 1,
   isFavorites: false,
   valueInput: "",
 };
@@ -48,7 +51,6 @@ export const ProductsSlice = createSlice({
     },
     productsFetchingUidSuccess(state, action: PayloadAction<string[]>) {
       state.isLoading = false;
-
       state.productsUid = action.payload;
       state.error = "";
     },
@@ -76,9 +78,12 @@ export const ProductsSlice = createSlice({
     //   state.paramSort = action.payload;
     // },
 
-    // setpostsPage(state, action: PayloadAction<string>) {
-    //   state.postsPage = action.payload;
-    // },
+    setProductsPage(state, action: PayloadAction<number>) {
+      state.productsPage = action.payload;
+    },
+    setProductsValuePage(state, action: PayloadAction<string>) {
+      state.productsValuePage = action.payload;
+    },
 
     // setValueUnput(state, action: PayloadAction<string>) {
     //   state.valueInput = action.payload;

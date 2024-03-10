@@ -15,10 +15,9 @@ export const valantisURL = `http://api.valantis.store:40000/`;
 const password = "Valantis";
 const timestamp = formatteDate();
 
-const authString = `${password}_${timestamp}`;
+const authString = `${password}_${"20240310"}`;
 const hash = md5(authString);
-
-const getData = async (action: string, params?: any) => {
+const getData = async (action: string, params?: any, count = 0) => {
   try {
     const response = await axios.post(
       valantisURL,
@@ -40,12 +39,16 @@ const getData = async (action: string, params?: any) => {
   } catch (error) {
     // Обработка ошибки
     console.error(error);
+    // Повторный запрос если ошибка, не больше 3х раз
+    if (count < 3) {
+      getData(action, params, count + 1);
+    }
   }
 };
 export const fetchProductsUid =
   (params: any) => async (dispatch: AppDispatch) => {
     try {
-      dispatch(PostsSlice.actions.postsFetching());
+      dispatch(ProductsSlice.actions.productsFetching());
       const resProductsUid = await getData("get_ids", params);
       dispatch(
         ProductsSlice.actions.productsFetchingUidSuccess(resProductsUid.result)
@@ -61,11 +64,10 @@ export const fetchProductsUid =
 export const fetchProducts =
   (productsUid: string[]) => async (dispatch: AppDispatch) => {
     try {
-      dispatch(PostsSlice.actions.postsFetching());
+      dispatch(ProductsSlice.actions.productsFetching());
       const paramsProducts = {
         ids: productsUid,
       };
-      console.log(productsUid);
       const respProducts = await getData("get_items", paramsProducts);
       dispatch(
         ProductsSlice.actions.productsFetchingSuccess(respProducts.result)

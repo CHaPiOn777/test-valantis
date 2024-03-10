@@ -116,7 +116,7 @@ const Posts = () => {
             );
           })}
       </div>
-      {/* <Pagination totalPosts={postsFilter.length} paginate={paginate} /> */}
+      <Pagination />
     </Loader>
   );
 };

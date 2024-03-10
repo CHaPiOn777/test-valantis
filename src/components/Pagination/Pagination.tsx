@@ -1,43 +1,33 @@
-import { FC, SetStateAction, useState } from "react";
-import { useAppSelector } from "../../hooks/redux";
+import { FC, SetStateAction, useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import styles from "./Pagination.module.css";
+import { ProductsSlice } from "../../store/reducers/ProductsSlice";
 
-type TTotalPosts = {
-  totalPosts: number;
-  paginate: (currentPage: SetStateAction<number>) => void;
-};
+const Pagination = () => {
+  const dispatch = useAppDispatch();
 
-const Pagination: FC<TTotalPosts> = ({ totalPosts, paginate }) => {
-  const { postsPage } = useAppSelector((state) => state.postReducer);
-  const [activeIndex, setActiveIndex] = useState<number>(Number);
-  const pageNumbers = [];
-
-  for (let i = 1; i <= Math.ceil(totalPosts / Number(postsPage)); i++) {
-    pageNumbers.push(i);
-  }
-
-  const onClick = (index: number, number: number) => {
-    paginate(number);
-    setActiveIndex(index);
-  };
+  const { productsPage } = useAppSelector((state) => state.productsReducer);
+  const { setProductsPage } = ProductsSlice.actions;
 
   return (
     <ul className={styles.pagination}>
-      {pageNumbers.map((number, index) => (
-        <li className={styles.pageItem} key={index}>
-          <a
-            href="#"
-            className={
-              activeIndex === index
-                ? `${styles.pageLink} ${styles.pageLinkActive}`
-                : styles.pageLink
-            }
-            onClick={(e) => onClick(index, number)}
-          >
-            {number}
-          </a>
-        </li>
-      ))}
+      <li className={styles.pageItem}>
+        <button
+          className={styles.pageLink}
+          disabled={productsPage <= 1}
+          onClick={() => dispatch(setProductsPage(productsPage - 1))}
+        >
+          lastPage
+        </button>
+      </li>
+      <li className={styles.pageItem}>
+        <button
+          className={styles.pageLink}
+          onClick={() => dispatch(setProductsPage(productsPage + 1))}
+        >
+          nextPage
+        </button>
+      </li>
     </ul>
   );
 };

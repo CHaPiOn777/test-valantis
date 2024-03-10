@@ -1,4 +1,4 @@
-export const formatteDate = () => {
+export const formatteDate = (): string => {
   const today = new Date();
   const year = today.getFullYear();
   let month = String(today.getMonth() + 1).padStart(2, "0");

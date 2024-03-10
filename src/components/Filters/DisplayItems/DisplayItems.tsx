@@ -2,24 +2,25 @@ import { useEffect, useState } from "react";
 import styles from "./DisplayItems.module.css";
 import { useAppDispatch } from "../../../hooks/redux";
 import { PostsSlice } from "../../../store/reducers/PostsSlice";
+import { ProductsSlice } from "../../../store/reducers/ProductsSlice";
 
 const DisplayItems = () => {
   const dispatch = useAppDispatch();
-  const { setpostsPage } = PostsSlice.actions;
+  const { setProductsValuePage } = ProductsSlice.actions;
   const counter = localStorage.getItem("counterPerPages");
   const [counterPerPages, setCounterPerPages] = useState<string>(
-    counter || "10"
+    counter || "50"
   );
-  const arrValues = ["10", "20", "50", "100"];
+  const arrValues = ["10", "20", "50"];
   localStorage.setItem("counterPerPages", counterPerPages);
 
   useEffect(() => {
-    dispatch(setpostsPage(counterPerPages));
+    dispatch(setProductsValuePage(counterPerPages));
   }, [counterPerPages, counter]);
 
   return (
     <div className={styles.selectContainer}>
-      <p>Display items</p>
+      <p className={styles.title}>Display items</p>
       <select
         value={counterPerPages || "10"}
         className={styles.select}
