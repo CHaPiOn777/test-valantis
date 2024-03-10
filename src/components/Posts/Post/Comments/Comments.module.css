@@ -1,0 +1,25 @@
+
+.comment {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  
+}
+.name {
+  font-size: 1rem;
+  line-height: 1rem;
+  font-weight: 600;
+}
+
+.email{
+  font-size: .8rem;
+  line-height: .8rem;
+  font-weight: 400;
+}
+.body {
+  font-size: .8rem;
+  line-height: 1.2rem;
+  font-weight: 400;
+}

@@ -1,0 +1,17 @@
+.sortedContainer {
+  display: flex;
+  gap: 15px;
+}
+
+.select {
+
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all .3s;
+}
+.select:hover {
+  opacity: .5;
+}

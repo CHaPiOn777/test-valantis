@@ -1,0 +1,73 @@
+.containerFilter {
+  margin: auto;
+  margin-top: 150px;
+
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  overflow-x: hidden;
+  align-items: center;
+}
+
+.form {
+  max-width: 1200px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 5px 5px 15px rgb(0 38 93 / 8%);
+  margin-bottom: 50px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 45px;
+}
+
+.filterIcon {
+  padding-top: 10px;
+  padding-right: 8px;
+}
+
+.input {
+  color: #007eff;
+  width: 100%;
+  padding: 15px 50px;
+  background-color: #d1f0ff41;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1rem;
+  letter-spacing: 1px;
+  color: #060c23;
+  border: 1px solid #00000028;
+  outline: none;
+  border-radius: 5px;
+  position: relative;
+}
+
+.searchIcon {
+  z-index: 10;
+  padding: 5px;
+  margin-top: 3px;
+  margin-right: -40px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #bfc9d9;
+  opacity: 1; /* Firefox */
+}
+
+.input:focus::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  opacity: 1; /* Firefox */
+}
+.input:focus {
+  color: #000;
+  border: 2px solid #000;
+}

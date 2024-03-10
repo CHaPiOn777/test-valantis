@@ -1,0 +1,18 @@
+.pagination {
+  margin-top: 40px;
+  display: flex;
+  list-style: none;
+  gap: 5px;
+  justify-content: center;
+}
+.pageLink {
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 3px;
+}
+.pageLinkActive{
+  color: #007eff
+}

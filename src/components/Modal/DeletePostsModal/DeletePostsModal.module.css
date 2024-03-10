@@ -1,0 +1,25 @@
+.text {
+  font-size: 1.3rem;
+  line-height: 2rem;
+}
+.btns {
+  margin-top: 50px;
+  display: flex;
+  gap: 20px;
+}
+
+.btn {
+  font-size: 1.3rem;
+  line-height: 2rem;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #000;
+  cursor: pointer;
+  transition: all .3s ;
+}
+.btn:hover {
+  color: #fff;
+  background-color: #007eff;
+  border: none;
+} 

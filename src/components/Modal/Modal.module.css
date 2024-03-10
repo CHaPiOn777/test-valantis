@@ -1,0 +1,44 @@
+.container {
+
+  padding: 25px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  max-width: 650px;
+  width: 100%;
+  min-height: 400px;
+  text-align: center;
+  border-radius: 40px;
+  margin: 5px auto;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  justify-content: center;
+  transition: visibility .3s, opacity .3s ease-in-out;
+}
+
+.container.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.close {
+  position: absolute;
+  background-color: #ffffff00;
+  border: none;
+  top: 0;
+  right: 0;
+  padding: 30px;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity .3s ease-in-out;
+}
+
+.close:hover {
+  opacity: .6;
+}
