@@ -4,7 +4,7 @@ import { AppDispatch } from "../store";
 import { formatteDate } from "../../utils/date-format";
 import { ProductsSlice } from "./ProductsSlice";
 
-export const valantisURL = `http://api.valantis.store:40000/`;
+export const valantisURL = `https://api.valantis.store:41000/`;
 
 const password = "Valantis";
 const timestamp = formatteDate();

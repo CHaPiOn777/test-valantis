@@ -16,7 +16,6 @@ type TProductState = {
   isFavorites: boolean;
   idChecked: string[];
   isFiltered: boolean;
-  // paramSort: string[];
   productsPage: number;
   valueInput: string;
 };
@@ -48,7 +47,6 @@ export const ProductsSlice = createSlice({
         (product, index, self) =>
           index === self.findIndex((p) => p.id === product.id)
       );
-      // state.isFiltered = false;
       state.products = uniqueProducts;
       state.error = "";
     },
@@ -79,10 +77,6 @@ export const ProductsSlice = createSlice({
     favoritesActive(state) {
       state.isFavorites = !state.isFavorites;
     },
-
-    // sortedPosts(state, action: PayloadAction<string[]>) {
-    //   state.paramSort = action.payload;
-    // },
 
     setProductsPage(state, action: PayloadAction<number>) {
       state.productsPage = action.payload;
