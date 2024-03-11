@@ -6,17 +6,13 @@ import { ProductsSlice } from "../../../store/reducers/ProductsSlice";
 const DisplayItems = () => {
   const dispatch = useAppDispatch();
   const { setProductsValuePage, setIsFiltered } = ProductsSlice.actions;
-  const counter = localStorage.getItem("counterPerPages");
-  const [counterPerPages, setCounterPerPages] = useState<string>(
-    counter || "50"
-  );
+  const [counterPerPages, setCounterPerPages] = useState<string>("50");
   const arrValues = ["10", "20", "50"];
-  localStorage.setItem("counterPerPages", counterPerPages);
 
   useEffect(() => {
     dispatch(setProductsValuePage(counterPerPages));
     dispatch(setIsFiltered(false));
-  }, [counterPerPages, counter, dispatch, setProductsValuePage, setIsFiltered]);
+  }, [counterPerPages, dispatch, setProductsValuePage, setIsFiltered]);
 
   return (
     <div className={styles.selectContainer}>

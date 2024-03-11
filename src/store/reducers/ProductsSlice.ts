@@ -6,7 +6,7 @@ export type TProduct = {
   price: number;
   product: string;
 };
-type TProductState = {
+export type TProductState = {
   products: TProduct[];
   productsValuePage: string;
   productsUid: string[];
@@ -23,7 +23,7 @@ type TProductState = {
 const initialState: TProductState = {
   isFiltered: false,
   products: [],
-  productsValuePage: "10",
+  productsValuePage: "50",
   productsUid: [],
   isLoading: false,
   error: "",
@@ -51,8 +51,6 @@ export const ProductsSlice = createSlice({
       state.error = "";
     },
     productsFetchingUidSuccess(state, action: PayloadAction<string[]>) {
-      state.isLoading = false;
-
       state.productsUid = action.payload;
       state.error = "";
     },
