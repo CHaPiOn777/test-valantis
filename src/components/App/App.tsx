@@ -10,12 +10,10 @@ import Filters from "../Filters/Filters";
 
 function App() {
   const dispatch = useAppDispatch();
-  const counterPerPages = localStorage.getItem("counterPerPages");
 
   const { productsUid, productsPage, productsValuePage } = useAppSelector(
     (state) => state.productsReducer
   );
-  console.log(counterPerPages);
   useEffect(() => {
     dispatch(
       fetchProductsUid({
@@ -25,7 +23,7 @@ function App() {
     );
   }, [dispatch, productsPage, productsValuePage]);
   useEffect(() => {
-    productsUid.length && dispatch(fetchProducts(productsUid));
+    dispatch(fetchProducts(productsUid));
   }, [productsUid, dispatch]);
 
   return (

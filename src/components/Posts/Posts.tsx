@@ -1,109 +1,34 @@
-import { SetStateAction, useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import styles from "./Posts.module.css";
 import Post from "./Post/Post";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { fetchComments, fetchUsers } from "../../store/reducers/ActionCreater";
+import { useAppSelector } from "../../hooks/redux";
 import { Loader } from "../Loader/Loader";
 import Pagination from "../Pagination/Pagination";
 
 const Posts = () => {
-  const dispatch = useAppDispatch();
-  // const { comments } = useAppSelector((state) => state.commentsReducer);
-  const { user } = useAppSelector((state) => state.usersReducer);
-  const { products, productsUid, error, isLoading } = useAppSelector(
-    (state) => state.productsReducer
-  );
+  const { products } = useAppSelector((state) => state.productsReducer);
+  const { error } = useAppSelector((state) => state.productsReducer);
+  const { isLoading } = useAppSelector((state) => state.productsReducer);
+  const { isFiltered } = useAppSelector((state) => state.productsReducer);
+  const { isFavorites } = useAppSelector((state) => state.productsReducer);
+  const { favorites } = useAppSelector((state) => state.productsReducer);
 
-  console.log(products);
-  const counter = localStorage.getItem("counterPerPages");
-
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  // const {
-  //   favorites,
-  //   isFavorites,
-  //   paramSort,
-  //   postsPage,
-  //   posts,
-  //   isLoading,
-  //   error,
-  //   valueInput,
-  // } = useAppSelector((state) => state.postReducer);
-
-  // let postsFilter = useMemo(() => {
-  //   if (isFavorites === true) {
-  //     const favoritesFilter = favorites.map((favorite) => {
-  //       return posts.filter((post) => post.post.id === favorite);
-  //     });
-  //     return favoritesFilter.flat();
-  //   }
-  //   if (user === "All") return posts;
-  //   return posts.filter((post) => post.user[0].name === user);
-  // }, [user, posts, favorites, isFavorites, paramSort, counter]);
-
-  // postsFilter = useMemo(
-  //   () =>
-  //     postsFilter.filter((post) => {
-  //       return post.post.title
-  //         .toLocaleLowerCase()
-  //         .includes(valueInput.toLocaleLowerCase());
-  //     }),
-  //   [valueInput, postsFilter, counter]
-  // );
-
-  // useEffect(() => {
-  //   const [param, ascending] = paramSort;
-
-  //   if (param === "ID Card") {
-  //     if (ascending === "Ascending") {
-  //       postsFilter.sort((a, b) => {
-  //         return b.post.id - a.post.id;
-  //       });
-  //     } else {
-  //       postsFilter.sort((a, b) => {
-  //         return a.post.id - b.post.id;
-  //       });
-  //     }
-  //   }
-
-  //   if (param === "User Name") {
-  //     if (ascending === "Ascending") {
-  //       postsFilter.sort((a, b) => {
-  //         if (b.user[0].name > a.user[0].name) return -1;
-  //         if (b.user[0].name < a.user[0].name) return 1;
-  //         return 0;
-  //       });
-  //     } else {
-  //       postsFilter.sort((a, b) => {
-  //         if (b.user[0].name > a.user[0].name) return 1;
-  //         if (b.user[0].name < a.user[0].name) return -1;
-  //         return 0;
-  //       });
-  //     }
-  //   }
-  // }, [postsFilter, paramSort, counter]);
-
-  // const lastPostPages = currentPage * Number(postsPage);
-  // const firstPostPages = lastPostPages - Number(postsPage);
-
-  // const currentPost = useMemo(() => {
-  //   return postsFilter.slice(firstPostPages, lastPostPages);
-  // }, [postsFilter, firstPostPages, lastPostPages, paramSort, counter]);
-
-  const paginate = (currentPage: SetStateAction<number>) =>
-    setCurrentPage(currentPage);
-
-  // useEffect(() => {
-  //   dispatch(fetchUsers());
-  //   dispatch(fetchComments());
-  // }, []);
-  const { users } = useAppSelector((state) => state.usersReducer);
+  const postsFilter = useMemo(() => {
+    if (isFavorites === true) {
+      const favoritesFilter = favorites.map((favorite) => {
+        return products.filter((product) => product.id === favorite);
+      });
+      return favoritesFilter.flat();
+    }
+    return products;
+  }, [favorites, isFavorites, products]);
 
   return (
     <Loader loader={isLoading}>
       {error && <h1 className={styles.error}>{error}</h1>}
       <div className={styles.posts}>
-        {products &&
-          products?.map((product, index) => {
+        {postsFilter && postsFilter.length ? (
+          postsFilter?.map((product, index) => {
             return (
               <Post
                 key={index}
@@ -111,12 +36,14 @@ const Posts = () => {
                 id={product.id}
                 price={product.price}
                 product={product.product}
-                // comments={comments.filter((item) => item.postId === post.id)}
               />
             );
-          })}
+          })
+        ) : (
+          <p className={styles.description}>Товаров нет</p>
+        )}
       </div>
-      <Pagination />
+      {!isFiltered && !isFavorites && <Pagination />}
     </Loader>
   );
 };

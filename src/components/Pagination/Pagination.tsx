@@ -1,4 +1,3 @@
-import { FC, SetStateAction, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import styles from "./Pagination.module.css";
 import { ProductsSlice } from "../../store/reducers/ProductsSlice";

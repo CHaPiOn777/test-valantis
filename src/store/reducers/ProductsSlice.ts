@@ -12,15 +12,17 @@ type TProductState = {
   productsUid: string[];
   isLoading: boolean;
   error: string;
-  favorites: number[];
+  favorites: string[];
   isFavorites: boolean;
-  idChecked: number[];
+  idChecked: string[];
+  isFiltered: boolean;
   // paramSort: string[];
   productsPage: number;
   valueInput: string;
 };
 
 const initialState: TProductState = {
+  isFiltered: false,
   products: [],
   productsValuePage: "10",
   productsUid: [],
@@ -46,11 +48,13 @@ export const ProductsSlice = createSlice({
         (product, index, self) =>
           index === self.findIndex((p) => p.id === product.id)
       );
+      // state.isFiltered = false;
       state.products = uniqueProducts;
       state.error = "";
     },
     productsFetchingUidSuccess(state, action: PayloadAction<string[]>) {
       state.isLoading = false;
+
       state.productsUid = action.payload;
       state.error = "";
     },
@@ -59,7 +63,7 @@ export const ProductsSlice = createSlice({
       state.error = action.payload;
     },
 
-    toggleFavorites(state, action: PayloadAction<number>) {
+    toggleFavorites(state, action: PayloadAction<string>) {
       state.idChecked = [];
       if (state.favorites.some((item) => item === action.payload)) {
         state.favorites = state.favorites.filter(
@@ -69,7 +73,9 @@ export const ProductsSlice = createSlice({
         state.favorites.push(action.payload);
       }
     },
-
+    setIsFiltered(state, action: PayloadAction<boolean>) {
+      state.isFiltered = action.payload;
+    },
     favoritesActive(state) {
       state.isFavorites = !state.isFavorites;
     },
@@ -85,11 +91,11 @@ export const ProductsSlice = createSlice({
       state.productsValuePage = action.payload;
     },
 
-    // setValueUnput(state, action: PayloadAction<string>) {
-    //   state.valueInput = action.payload;
-    // },
+    setValueInput(state, action: PayloadAction<string>) {
+      state.valueInput = action.payload;
+    },
 
-    addChecked(state, action: PayloadAction<number>) {
+    addChecked(state, action: PayloadAction<string>) {
       if (state.idChecked.some((item) => item === action.payload)) {
         state.idChecked = state.idChecked.filter(
           (item) => item !== action.payload

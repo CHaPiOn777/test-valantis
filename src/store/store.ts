@@ -1,13 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import postReducer from "./reducers/PostsSlice";
-import usersReducer from "./reducers/UsersSlice";
-import commentsReducer from "./reducers/CommentsSlice";
 import productsReducer from "./reducers/ProductsSlice";
 
 const rootReducer = combineReducers({
-  postReducer,
-  usersReducer,
-  commentsReducer,
   productsReducer,
 });
 

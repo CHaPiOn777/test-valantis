@@ -8,6 +8,7 @@
   box-shadow: 5px 5px 15px rgb(0 38 93 / 8%);
   display: grid;
   grid-template-columns: 1fr 40px;
+  grid-template-rows: 40px 1fr 1fr;
   align-content: space-between;
   gap: 15px;
   cursor: pointer;
@@ -15,7 +16,6 @@
   grid-template-areas:
     "id favorite"
     "title title"
-    "price price"
     "footer footer";
 }
 
@@ -48,11 +48,20 @@
 }
 
 .price {
-  grid-area: price;
   text-align: center;
-  margin-top: 20px;
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+}
+.spanPrice {
   font-size: 1rem;
   line-height: 1.5rem;
+  font-weight: 500;
+}
+.brand {
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin-left: auto;
 }
 
 .footer {

@@ -1,27 +1,54 @@
-
 .select {
   color: #000;
   text-decoration: solid;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-
-  padding: 15px;
+  max-width: 90px;
+  /* padding: 10px; */
   border: none;
-  border-bottom: 2px solid #0000004d;
+  /* border-bottom: 2px solid #0000004d; */
   cursor: pointer;
   background-color: transparent;
-  transition: all .3s;
-}
-.select:hover {
-  opacity: .5;
+  transition: all 0.3s;
 }
 
-.selectContainer {
+.select:hover {
+  opacity: 0.5;
+}
+.select:focus-visible {
+  outline: 1px solid transparent;
+}
+.btnSubmit {
+  padding: 10px;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid #bedfff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btnSubmit:hover {
+  background-color: #bedfff;
+}
+.btnSubmit:disabled {
+  pointer-events: none;
+}
+.input {
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid #bedfff;
+  border-radius: 5px;
+}
+.input:focus-visible {
+  outline: none;
+}
+.formContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .arrow {
@@ -30,15 +57,17 @@
 }
 
 .option {
-
   border-radius: 5px;
   cursor: pointer;
 }
-
+.groupFilter {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
 .filterNameContainer {
-  
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -51,13 +80,13 @@
   font-size: 1rem;
   font-weight: 600;
   padding: 15px;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 .btnFavoritesActive {
-  color: #007eff
+  color: #0080ff;
 }
 .btnFavorites:hover {
-  opacity: .5;
+  opacity: 0.7;
 }
 
 .filterIcon {

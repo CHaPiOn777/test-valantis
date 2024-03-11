@@ -1,52 +1,110 @@
-import React, { useEffect, useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useCallback } from "react";
 import styles from "./Filtred.module.css";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { PostsSlice } from "../../../store/reducers/PostsSlice";
-import { UsersSlice } from "../../../store/reducers/UsersSlice";
+import {
+  fetchFilters,
+  fetchProductsUid,
+} from "../../../store/reducers/ActionCreater";
+import { ProductsSlice } from "../../../store/reducers/ProductsSlice";
 
+const filterItems = ["price", "product", "brand"];
 const Filtred = () => {
   const dispatch = useAppDispatch();
-  const { users } = useAppSelector((state) => state.usersReducer);
-  const [userName, setUserName] = useState<string>("All");
   const [active, setActive] = useState<boolean>(false);
-  const { putUserName } = UsersSlice.actions;
-  const { favoritesActive } = PostsSlice.actions;
+  const { favoritesActive } = ProductsSlice.actions;
+  const { setIsFiltered } = ProductsSlice.actions;
+  const [valueForm, setValueForm] = useState<string>("price");
+  const [formData, setFormData] = useState<Record<string, string | number>>({});
 
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setUserName(e.target.value);
+  const { productsPage } = useAppSelector((state) => state.productsReducer);
+  const { productsValuePage } = useAppSelector(
+    (state) => state.productsReducer
+  );
+  const handleChangeSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    setValueForm(e.target.value);
+    setFormData({});
   };
-
-  useEffect(() => {
-    dispatch(putUserName(userName));
-  }, [userName]);
-
-  const onClick = (e: React.MouseEvent) => {
+  const onClickAllFavor = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch(favoritesActive());
     setActive(!active);
   };
-
+  const handleSubmit = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.preventDefault();
+      event.stopPropagation();
+      dispatch(fetchFilters(formData));
+      dispatch(setIsFiltered(true));
+      setFormData({});
+    },
+    [dispatch, formData, setIsFiltered]
+  );
+  const resetFilters = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.preventDefault();
+      dispatch(
+        fetchProductsUid({
+          offset: productsPage,
+          limit: Number(productsValuePage),
+        })
+      );
+      dispatch(setIsFiltered(false));
+    },
+    [dispatch, productsPage, productsValuePage, setIsFiltered]
+  );
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData({
+      [name]: name === "price" ? Number(value) : value,
+    });
+  };
   return (
     <div className={styles.filterNameContainer}>
-      <div className={styles.selectContainer}>
+      <div className={styles.groupFilter}>
+        <h3 className={styles.title}>Фильтр:</h3>
         <select
-          name=""
-          id=""
           className={styles.select}
-          onChange={(e) => handleChange(e)}
+          onChange={(e) => handleChangeSelect(e)}
         >
-          <option value="All" className={styles.option}>
-            All
-          </option>
-          {users &&
-            users.map((user, index) => (
-              <option value={user.name} key={index} className={styles.option}>
-                {user.name}
-              </option>
-            ))}
+          {filterItems.map((item, index) => (
+            <option value={item} key={index} className={styles.option}>
+              {item}
+            </option>
+          ))}
         </select>
+        <form className={styles.formContainer}>
+          <input
+            type={valueForm === "price" ? "number" : "text"}
+            id={valueForm}
+            name={valueForm}
+            value={formData[valueForm] || ""}
+            onChange={handleChange}
+            className={styles.input}
+          />
+          <button
+            disabled={
+              formData[valueForm] === undefined ||
+              formData[valueForm] === 0 ||
+              formData[valueForm] === ""
+            }
+            className={styles.btnSubmit}
+            onClick={(e) => handleSubmit(e)}
+          >
+            Apply Filters
+          </button>
+          <button className={styles.btnSubmit} onClick={(e) => resetFilters(e)}>
+            Reset Filters
+          </button>
+        </form>
       </div>
-      <button className={active ? `${styles.btnFavorites} ${styles.btnFavoritesActive}` : styles.btnFavorites} onClick={(e) => onClick(e)}>
+      <button
+        className={
+          active
+            ? `${styles.btnFavorites} ${styles.btnFavoritesActive}`
+            : styles.btnFavorites
+        }
+        onClick={(e) => onClickAllFavor(e)}
+      >
         All favorites...
       </button>
     </div>
