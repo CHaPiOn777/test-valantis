@@ -50,7 +50,7 @@ const Filtred = () => {
       );
       dispatch(setIsFiltered(false));
     },
-    [dispatch, productsPage, productsValuePage, setIsFiltered]
+    [productsPage, productsValuePage]
   );
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

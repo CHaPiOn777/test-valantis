@@ -11,7 +11,9 @@ import Filters from "../Filters/Filters";
 function App() {
   const dispatch = useAppDispatch();
 
-  const { productsUid, productsPage, productsValuePage } = useAppSelector(
+  const { productsUid } = useAppSelector((state) => state.productsReducer);
+  const { productsPage } = useAppSelector((state) => state.productsReducer);
+  const { productsValuePage } = useAppSelector(
     (state) => state.productsReducer
   );
   useEffect(() => {
@@ -21,10 +23,10 @@ function App() {
         limit: Number(productsValuePage),
       })
     );
-  }, [dispatch, productsPage, productsValuePage]);
+  }, [productsPage, productsValuePage]);
   useEffect(() => {
     dispatch(fetchProducts(productsUid));
-  }, [productsUid, dispatch]);
+  }, [productsUid]);
 
   return (
     <>
